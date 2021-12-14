@@ -27,7 +27,15 @@ const Search: React.FC<SearchProps> = ({ onSubmit }) => {
       paddingTop={2}
       onSubmit={handleFormSubmit}
     >
-      <TextField id="user-login" name="login" label="User login" variant="outlined" onChange={handleLoginChange} value={login} required />
+      <TextField
+        id="user-login"
+        name="login"
+        label="User login"
+        variant="outlined"
+        onChange={handleLoginChange}
+        value={login}
+        required
+      />
       <Button variant="contained" type="submit">Search</Button>
     </Box>
   )

@@ -39,7 +39,14 @@ const Result: React.FC<Props> = ({ query }) => {
 
   return (
     <>
-      {state.data && <Table {...state} data={state.data} rowsPerPage={9} onPageChange={loadPage} />}
+      {state.data && (
+        <Table 
+          {...state}
+          data={state.data}
+          rowsPerPage={9}
+          onPageChange={loadPage}
+        />
+      )}
     </>
   )
 }
