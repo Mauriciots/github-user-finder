@@ -1,6 +1,16 @@
 import React from 'react'
 
-import { TableContainer, Table as MuiTable, TableHead, TableBody, TableRow, TableCell, TablePagination, Paper, Avatar } from '@mui/material'
+import {
+  TableContainer,
+  Table as MuiTable,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TablePagination,
+  Paper,
+  Avatar
+} from '@mui/material'
 
 import User from '../../service/User'
 

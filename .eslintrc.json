@@ -41,7 +41,7 @@
             "warn"
         ],
         "max-len": [
-            "error",
+            "warn",
             { "code": 150 }
         ]
     }

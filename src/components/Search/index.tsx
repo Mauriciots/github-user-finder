@@ -1,6 +1,8 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from 'react'
 
-import { Box, TextField, Button } from '@mui/material'
+import { TextField, Button } from '@mui/material'
+
+import Form from './Form'
 
 interface SearchProps {
   onSubmit: (login: string) => void
@@ -8,25 +10,23 @@ interface SearchProps {
 
 const Search: React.FC<SearchProps> = ({ onSubmit }) => {
   const [login, setLogin] = useState('')
+  const [invalid, setInvalid] = useState(false)
 
   const handleLoginChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setLogin(e.target.value)
+    setInvalid(!e.target.value.trim())
   }
 
   const handleFormSubmit: FormEventHandler = (e) => {
     e.preventDefault()
+    setInvalid(!login.trim())
     if (login) {
       onSubmit(login)
     }
   }
 
   return (
-    <Box
-      component="form"
-      autoComplete="off"
-      paddingTop={2}
-      onSubmit={handleFormSubmit}
-    >
+    <Form onSubmit={handleFormSubmit}>
       <TextField
         id="user-login"
         name="login"
@@ -34,10 +34,13 @@ const Search: React.FC<SearchProps> = ({ onSubmit }) => {
         variant="outlined"
         onChange={handleLoginChange}
         value={login}
-        required
+        error={invalid}
+        helperText={invalid && 'Please enter a value'}
       />
-      <Button variant="contained" type="submit">Search</Button>
-    </Box>
+      <Button variant="contained" type="submit">
+        Search
+      </Button>
+    </Form>
   )
 }
 
