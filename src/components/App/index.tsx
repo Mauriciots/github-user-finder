@@ -6,6 +6,7 @@ import { getUsers } from '../../service/searchUser'
 import Header from '../Header'
 import Search from '../Search'
 import Result, { SearchResult } from '../Result'
+import Footer from '../Footer'
 
 const App: React.FC = () => {
   const [login, setLogin] = useState('')
@@ -58,6 +59,7 @@ const App: React.FC = () => {
           <Result query={login} result={searchResult} onPageChange={handlePageChange} />
         )}
       </Container>
+      <Footer />
     </>
   )
 }
