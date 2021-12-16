@@ -28,7 +28,13 @@ const Table: React.FC<Props> = ({ data, rowsPerPage, totalCount, page, onPageCha
 
   return (
     <Paper>
-      <TableContainer sx={{ maxHeight: '65vh' }}>
+      <TableContainer
+        sx={{ 
+          maxHeight: {
+            lg: '65vh',
+          },
+        }}
+      >
         <MuiTable stickyHeader>
           <TableHead>
             <TableRow>
