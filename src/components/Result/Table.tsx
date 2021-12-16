@@ -12,7 +12,7 @@ import {
   Avatar
 } from '@mui/material'
 
-import User from '../../service/User'
+import { User } from '../../service/searchUser'
 
 interface Props {
   data: User[],
