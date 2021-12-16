@@ -30,19 +30,34 @@ describe('Result', () => {
     expect(screen.getByText(/Type a login in the input above and then click on the SEARCH button to find GitHub users/)).toBeInTheDocument()
   })
 
-  it('should render error state when result query.fail is true', () => {
+  it('should render generic error state when result query.error is 500', () => {
     const props = {
       ...baseProps,
       result: {
         ...baseProps.result,
-        fail: true,
+        error: 500,
       }
     }
 
     render(<Result {...props} />)
 
     expect(screen.getByText(/Search cannot be completed/)).toBeInTheDocument()
-    expect(screen.getByText(/An expected failure is preventing the search completion. You can try again later/)).toBeInTheDocument()
+    expect(screen.getByText(/An unexpected failure is preventing the search completion. You can try again later/)).toBeInTheDocument()
+  })
+
+  it('should render api limit error state when result query.error is 403', () => {
+    const props = {
+      ...baseProps,
+      result: {
+        ...baseProps.result,
+        error: 403,
+      }
+    }
+
+    render(<Result {...props} />)
+
+    expect(screen.getByText(/Search cannot be completed/)).toBeInTheDocument()
+    expect(screen.getByText(/The server request quota limit has been reached. You can try again within about one minute/)).toBeInTheDocument()
   })
 
   it('should render not-found state when result.data is empty', () => {

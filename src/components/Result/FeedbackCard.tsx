@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Box, Paper, Typography } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
 import {
   PersonSearchSharp as PersonSearchIcon,
   SearchOffSharp as SearchOffIcon,
@@ -9,7 +8,7 @@ import {
 } from '@mui/icons-material'
 
 interface Props {
-  type: 'empty' | 'notFound' | 'error'
+  type: 'empty' | 'notFound' | 'genericError' | 'apiLimitError'
 }
 
 const feedbackElements = {
@@ -23,26 +22,30 @@ const feedbackElements = {
     title: 'Nothing has been found',
     body: 'The search has been successfully completed but no matching user has been found',
   },
-  'error': {
+  'genericError': {
     icon: <SadIcon />,
     title: 'Search cannot be completed',
     body: 'An unexpected failure is preventing the search completion. You can try again later',
   },
+  'apiLimitError': {
+    icon: <SadIcon />,
+    title: 'Search cannot be completed',
+    body: 'The server request quota limit has been reached. You can try again within about one minute',
+  },
 }
 
 const Empty: React.FC<Props> = ({ type }) => {
-  const { palette, spacing } = useTheme()
   const { icon, title, body } = feedbackElements[type]
 
   return (
     <Paper
       sx={{ 
-        padding: spacing(3),
-        backgroundColor: palette.secondary.main,
+        padding: 3,
+        backgroundColor: 'secondary.main',
         display: 'flex',
         flexFlow: 'column wrap',
         alignItems: 'center',
-        rowGap: spacing(2),
+        rowGap: 2,
       }}
     >
       <Box sx={{ '& svg': { fontSize: '48px' } }}>

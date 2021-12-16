@@ -22,15 +22,16 @@ const App: React.FC = () => {
     try {
       const result = await getUsers(query, page + 1)
       setSearchResult({
-        fail: false,
+        error: undefined,
         data: result.items,
         totalCount: result.total_count,
         page,
       })
       setLoading(false)
-    } catch(_error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch(e: any) {
       setSearchResult({
-        fail: true,
+        error: e.response?.status || 'noresponse',
         data: [],
         totalCount: 0,
         page: 0,
