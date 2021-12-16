@@ -11,6 +11,7 @@ import {
   Paper,
   Avatar
 } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
 import { User } from '../../service/searchUser'
 
@@ -23,10 +24,12 @@ interface Props {
 }
 
 const Table: React.FC<Props> = ({ data, rowsPerPage, totalCount, page, onPageChange }) => {
+  const { palette } = useTheme()
+
   return (
-    <>
-      <TableContainer component={Paper}>
-        <MuiTable>
+    <Paper>
+      <TableContainer sx={{ maxHeight: '65vh' }}>
+        <MuiTable stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell>Avatar</TableCell>
@@ -54,8 +57,9 @@ const Table: React.FC<Props> = ({ data, rowsPerPage, totalCount, page, onPageCha
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={(_event, newPage) => onPageChange(newPage)}
+        sx={{ backgroundColor: palette.secondary.main }}
       />
-    </>
+    </Paper>
   )
 }
 
