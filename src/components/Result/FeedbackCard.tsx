@@ -26,7 +26,7 @@ const feedbackElements = {
   'error': {
     icon: <SadIcon />,
     title: 'Search cannot be completed',
-    body: 'An expected failure is preventing the search completion. You can try again later',
+    body: 'An unexpected failure is preventing the search completion. You can try again later',
   },
 }
 
