@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 
 const customBlack = '#413D3D'
-const customLightGrey = '#D3D3D34A'
+const customLightGrey = '#F5F5F5'
 
 const theme = createTheme({
   palette: {
@@ -25,9 +25,9 @@ const theme = createTheme({
         },
       },
     },
-    MuiTableHead: {
+    MuiTableCell: {
       styleOverrides: {
-        root: {
+        head: {
           backgroundColor: customLightGrey,
         },
       },
