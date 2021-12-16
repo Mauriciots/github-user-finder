@@ -5,7 +5,7 @@ import Table from './Table'
 import FeedbackCard from './FeedbackCard'
 
 export interface SearchResult {
-  fail?: boolean
+  error?: number | 'noresponse'
   data: User[]
   totalCount: number
   page: number
@@ -22,8 +22,8 @@ const Result: React.FC<Props> = ({ query, result, onPageChange }) => {
     return <FeedbackCard type="empty" />
   }
 
-  if (result.fail) {
-    return <FeedbackCard type="error" />
+  if (result.error) {
+    return <FeedbackCard type={result.error === 403 ? 'apiLimitError' : 'genericError'} />
   }
 
   return (

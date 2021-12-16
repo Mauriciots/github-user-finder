@@ -45,7 +45,7 @@ describe('App', () => {
   })
 
   it('should display error state when service call fails', async () => {
-    getUsersMock.mockRejectedValue({ status: 500 })
+    getUsersMock.mockRejectedValue({ response: { status: 500 } })
 
     render(<App />)
     userEvent.type(screen.getByLabelText(/User login/), 'user')

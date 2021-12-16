@@ -6,6 +6,7 @@ import { getUsers } from '../../service/searchUser'
 import Header from '../Header'
 import Search from '../Search'
 import Result, { SearchResult } from '../Result'
+import Footer from '../Footer'
 
 const App: React.FC = () => {
   const [login, setLogin] = useState('')
@@ -21,15 +22,16 @@ const App: React.FC = () => {
     try {
       const result = await getUsers(query, page + 1)
       setSearchResult({
-        fail: false,
+        error: undefined,
         data: result.items,
         totalCount: result.total_count,
         page,
       })
       setLoading(false)
-    } catch(_error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch(e: any) {
       setSearchResult({
-        fail: true,
+        error: e.response?.status || 'noresponse',
         data: [],
         totalCount: 0,
         page: 0,
@@ -58,6 +60,7 @@ const App: React.FC = () => {
           <Result query={login} result={searchResult} onPageChange={handlePageChange} />
         )}
       </Container>
+      <Footer />
     </>
   )
 }
