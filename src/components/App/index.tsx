@@ -8,6 +8,8 @@ import Search from '../Search'
 import Result, { SearchResult } from '../Result'
 import Footer from '../Footer'
 
+const ROWS_PER_PAGE = 9
+
 const App: React.FC = () => {
   const [login, setLogin] = useState('')
   const [loading, setLoading] = useState(false)
@@ -20,7 +22,7 @@ const App: React.FC = () => {
   const loadPage = async (query: string, page = 0): Promise<void> => {
     setLoading(true)
     try {
-      const result = await getUsers(query, page + 1)
+      const result = await getUsers(query, ROWS_PER_PAGE, page + 1)
       setSearchResult({
         error: undefined,
         data: result.items,
@@ -57,7 +59,12 @@ const App: React.FC = () => {
         {loading ? (
           <CircularProgress /> 
         ) : (
-          <Result query={login} result={searchResult} onPageChange={handlePageChange} />
+          <Result 
+            query={login}
+            result={searchResult}
+            rowsPerPage={ROWS_PER_PAGE}
+            onPageChange={handlePageChange}
+          />
         )}
       </Container>
       <Footer />

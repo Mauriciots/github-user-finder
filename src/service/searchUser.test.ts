@@ -18,7 +18,7 @@ describe('getUsers', () => {
   it('should return users when endpoint call is successfully completed', async () => {
     spyOnGet.mockResolvedValue({ data })
 
-    const users = await getUsers('king', 1)
+    const users = await getUsers('king', 9, 1)
 
     expect(users).toStrictEqual(data)
     expect(spyOnGet).toHaveBeenCalledWith('https://api.github.com/search/users', {
@@ -36,7 +36,7 @@ describe('getUsers', () => {
 
     let actualError = {}
     try {
-      await getUsers('king', 1)
+      await getUsers('king', 10, 1)
     } catch(error) {
       actualError = error
     }

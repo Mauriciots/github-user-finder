@@ -13,10 +13,10 @@ export interface SearchUsersResponse {
   total_count: number
 }
 
-export async function getUsers(query: string, page: number): Promise<SearchUsersResponse> {
+export async function getUsers(query: string, perPage: number, page: number): Promise<SearchUsersResponse> {
   const params = { 
     q: `${query} in:login`,
-    per_page: 9,
+    per_page: perPage,
     page,
   }
 
