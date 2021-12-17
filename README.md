@@ -1,5 +1,5 @@
 # GitHub User Finder
-A simple web application to search GitHub users easily.
+A simple web application to search GitHub users easily. Public URL: https://amazing-roentgen-d4bd66.netlify.app/
 
 This project was bootstrapped using Create React App. For more information, please check out https://create-react-app.dev/.
 
