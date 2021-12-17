@@ -14,6 +14,7 @@ const baseProps = {
     totalCount: 0,
     page: 0,
   },
+  rowsPerPage: 9,
   onPageChange: onPageChangeMock,
 }
 

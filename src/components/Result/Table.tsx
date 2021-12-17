@@ -64,6 +64,8 @@ const Table: React.FC<Props> = ({ data, rowsPerPage, totalCount, page, onPageCha
         page={page}
         onPageChange={(_event, newPage) => onPageChange(newPage)}
         sx={{ backgroundColor: palette.secondary.main }}
+        showFirstButton
+        showLastButton
       />
     </Paper>
   )

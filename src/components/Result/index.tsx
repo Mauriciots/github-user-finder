@@ -14,10 +14,11 @@ export interface SearchResult {
 interface Props {
   query: string
   result: SearchResult
+  rowsPerPage: number
   onPageChange: (page: number) => void
 }
 
-const Result: React.FC<Props> = ({ query, result, onPageChange }) => {
+const Result: React.FC<Props> = ({ query, result, rowsPerPage, onPageChange }) => {
   if (!query) {
     return <FeedbackCard type="empty" />
   }
@@ -32,7 +33,7 @@ const Result: React.FC<Props> = ({ query, result, onPageChange }) => {
         <Table 
           {...result}
           data={result.data}
-          rowsPerPage={9}
+          rowsPerPage={rowsPerPage}
           onPageChange={onPageChange}
         />
       ) : <FeedbackCard type="notFound" />}
