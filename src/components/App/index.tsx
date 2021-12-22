@@ -1,54 +1,47 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Container, CircularProgress } from '@mui/material'
 
+import useUserSearch from './useUserSearch'
 import { getUsers } from '../../service/searchUser'
 import Header from '../Header'
 import Search from '../Search'
-import Result, { SearchResult } from '../Result'
+import Result from '../Result'
 import Footer from '../Footer'
 
 const ROWS_PER_PAGE = 9
 
 const App: React.FC = () => {
-  const [login, setLogin] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [searchResult, setSearchResult] = useState<SearchResult>({
-    data: [],
-    page: 0,
-    totalCount: 0,
-  })
+  const {
+    changePage,
+    startSearch,
+    completeSearch,
+    failSearch,
+    state,
+  } = useUserSearch()
 
   const loadPage = async (query: string, page = 0): Promise<void> => {
-    setLoading(true)
     try {
       const result = await getUsers(query, ROWS_PER_PAGE, page + 1)
-      setSearchResult({
-        error: undefined,
+      completeSearch({
         data: result.items,
         totalCount: result.total_count,
         page,
       })
-      setLoading(false)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch(e: any) {
-      setSearchResult({
-        error: e.response?.status || 'noresponse',
-        data: [],
-        totalCount: 0,
-        page: 0,
-      })
-      setLoading(false)
+      failSearch(e.response?.status || 'noresponse')
     }
   }
 
   const handleSearchSubmit = (searchLogin: string) => {
-    setLogin(searchLogin)
+    startSearch(searchLogin)
     loadPage(searchLogin)
   }
 
   const handlePageChange = (page: number) => {
-    loadPage(login, page)
+    changePage()
+    loadPage(state.login, page)
   }
 
   return (
@@ -56,12 +49,12 @@ const App: React.FC = () => {
       <Header />
       <Container component="main" maxWidth="md">
         <Search onSubmit={handleSearchSubmit} />
-        {loading ? (
+        {state.loading ? (
           <CircularProgress /> 
         ) : (
           <Result 
-            query={login}
-            result={searchResult}
+            query={state.login}
+            result={state}
             rowsPerPage={ROWS_PER_PAGE}
             onPageChange={handlePageChange}
           />
