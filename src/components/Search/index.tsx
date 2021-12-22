@@ -1,14 +1,15 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from 'react'
 
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, CircularProgress } from '@mui/material'
 
 import Form from './Form'
 
 interface SearchProps {
-  onSubmit: (login: string) => void
+  onSubmit: (login: string, complete: () => void) => void
 }
 
 const Search: React.FC<SearchProps> = ({ onSubmit }) => {
+  const [loading, setLoading] = useState(false)
   const [login, setLogin] = useState('')
   const [invalid, setInvalid] = useState(false)
 
@@ -21,7 +22,10 @@ const Search: React.FC<SearchProps> = ({ onSubmit }) => {
     e.preventDefault()
     setInvalid(!login.trim())
     if (login) {
-      onSubmit(login)
+      setLoading(true)
+      if (!loading) {
+        onSubmit(login, () => setLoading(false))
+      }
     }
   }
 
@@ -37,8 +41,8 @@ const Search: React.FC<SearchProps> = ({ onSubmit }) => {
         error={invalid}
         helperText={invalid && 'Please enter a value'}
       />
-      <Button variant="contained" type="submit">
-        Search
+      <Button variant="contained" type="submit" sx={{ width: '106px' }}>
+        {!loading ? 'Search' : <CircularProgress size="1.5rem" sx={{ color: '#FFF' }} />}
       </Button>
     </Form>
   )

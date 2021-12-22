@@ -20,7 +20,7 @@ const App: React.FC = () => {
     state,
   } = useUserSearch()
 
-  const loadPage = async (query: string, page = 0): Promise<void> => {
+  const loadPage = async (query: string, complete?: () => void, page = 0): Promise<void> => {
     try {
       const result = await getUsers(query, ROWS_PER_PAGE, page + 1)
       completeSearch({
@@ -31,17 +31,21 @@ const App: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch(e: any) {
       failSearch(e.response?.status || 'noresponse')
+    } finally {
+      if (complete) {
+        complete()
+      }
     }
   }
 
-  const handleSearchSubmit = (searchLogin: string) => {
+  const handleSearchSubmit = (searchLogin: string, complete: () => void) => {
     startSearch(searchLogin)
-    loadPage(searchLogin)
+    loadPage(searchLogin, complete)
   }
 
   const handlePageChange = (page: number) => {
     changePage()
-    loadPage(state.login, page)
+    loadPage(state.login, undefined, page)
   }
 
   return (
@@ -49,16 +53,12 @@ const App: React.FC = () => {
       <Header />
       <Container component="main" maxWidth="md">
         <Search onSubmit={handleSearchSubmit} />
-        {state.loading ? (
-          <CircularProgress /> 
-        ) : (
-          <Result 
-            query={state.login}
-            result={state}
-            rowsPerPage={ROWS_PER_PAGE}
-            onPageChange={handlePageChange}
-          />
-        )}
+        <Result 
+          query={state.login}
+          result={state}
+          rowsPerPage={ROWS_PER_PAGE}
+          onPageChange={handlePageChange}
+        />
       </Container>
       <Footer />
     </>
