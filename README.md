@@ -3,9 +3,6 @@ A simple web application to search GitHub users easily. Public URL: https://amaz
 
 This project was bootstrapped using Create React App. For more information, please check out https://create-react-app.dev/.
 
-## Negative scope
-Sorting has not been implemented in this version due to a technical restriction. The GitHub API (https://docs.github.com/en/rest/reference/search#search-users) does not support sorting by any of the columns displayed in the data table. It couldn't have been done in memory because there is a requirement of using server pagination.
-
 ## How to start up project locally
 - install dependencies running `yarn install`
 - start up application running `yarn start`
